@@ -1,18 +1,18 @@
+from pydantic import BaseModel
 from fastapi import FastAPI
 
 app = FastAPI()
 
+class Body(BaseModel):
+    name: str
 
-@app.get("/items/", tags=["items"])
-async def read_items():
-    return [{"name": "Foo", "price": 42}]
-
-
-@app.get("/users/", tags=["users"])
-async def read_users():
-    return [{"username": "johndoe"}]
+@app.get("/name/", tags=["name"])
+async def items():
+    result = "내 이름은 누구입니다."
+    return result
 
 
-@app.get("/elements/", tags=["items"], deprecated=True)
-async def read_elements():
-    return [{"item_id": "Foo"}]
+@app.post("/name/", tags=["name"])
+async def items(name: Body):
+    result = f"내 이름은 {name.name}입니다."
+    return result

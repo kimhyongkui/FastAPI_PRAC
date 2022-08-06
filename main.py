@@ -1,18 +1,17 @@
-from pydantic import BaseModel
-from fastapi import FastAPI
+from fastapi import Depends, FastAPI
 
 app = FastAPI()
 
-class Body(BaseModel):
-    name: str
 
-@app.get("/name/", tags=["name"])
-async def items():
-    result = "내 이름은 누구입니다."
-    return result
+async def common_parameters(q: str | None = None, skip: int = 0, limit: int = 100):
+    return {"q": q, "skip": skip, "limit": limit}
 
 
-@app.post("/name/", tags=["name"])
-async def items(name: Body):
-    result = f"내 이름은 {name.name}입니다."
-    return result
+@app.get("/items/")
+async def read_items(commons: dict = Depends(common_parameters)):
+    return commons
+
+
+@app.get("/users/")
+async def read_users(commons: dict = Depends(common_parameters)):
+    return commons

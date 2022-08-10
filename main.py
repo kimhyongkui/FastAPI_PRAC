@@ -1,19 +1,11 @@
-from fastapi import Depends, FastAPI, Header, HTTPException
+from fastapi import Depends, FastAPI
+from fastapi.security import OAuth2PasswordBearer
 
 app = FastAPI()
 
-
-async def verify_token(x_token: str = Header()):
-    if x_token != "fake-super-secret-token":
-        raise HTTPException(status_code=400, detail="X-Token header invalid")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 
-async def verify_key(x_key: str = Header()):
-    if x_key != "fake-super-secret-key":
-        raise HTTPException(status_code=400, detail="X-Key header invalid")
-    return x_key
-
-
-@app.get("/items/", dependencies=[Depends(verify_token), Depends(verify_key)])
-async def read_items():
-    return [{"item": "Foo"}, {"item": "Bar"}]
+@app.get("/items/")
+async def read_items(token: str = Depends(oauth2_scheme)):
+    return {"token": token}

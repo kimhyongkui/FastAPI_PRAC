@@ -16,3 +16,7 @@ async def items():
 async def items(name: Body):
     result = f"내 이름은 {name.name}입니다."
     return result
+
+@app.put("/name/", tags=["name"])
+
+@app.delete("/name/", tags=["name"])

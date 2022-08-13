@@ -44,3 +44,6 @@ async def update_item(item_id: str, item: Item):
     items[item_id] = update_item_encoded
     return update_item_encoded
 
+num = 10
+result = f'my age {{{num}}}, {{num}}'
+print(result)

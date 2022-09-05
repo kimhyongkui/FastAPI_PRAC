@@ -7,11 +7,7 @@ app = FastAPI()
 key = "sh%2F1QzN2LTDtEC%2BJVBs0xY8tKrpfWk%2F5uHe88YcwMk59ICjn2dhJ6tSBL5DnWTkBDlyn5YRqJR1IQPXex6TqFQ%3D%3D"
 url = "http://ws.bus.go.kr/api/rest/busRouteInfo/getStaionByRoute?ServiceKey={}&busRouteId=100100118".format(key)
 
-def station():
-    return 'station'
 
-a = station()
-print(a)
 
 content = requests.get(url).content # GET요청
 dict=xmltodict.parse(content) # XML을 dictionary로 파싱

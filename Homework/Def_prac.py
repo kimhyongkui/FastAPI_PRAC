@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+import itertools
 
 app = FastAPI()
 
@@ -29,12 +30,14 @@ def station(city_name):
     return result
 print(station(city_name))
 
-cn = input("도시 이름을 써주세요: ")
+
+cn = input("도시 이름을 써주세요(콤마로 구분): ").split(",")
+
 city_name.append(cn)
 print(city_name)
 # cn = input("도시 이름을 써주세요(콤마로 구분): ").split(",")
 # cn = [x for x in input("도시 이름을 써주세요(입력 구분자: 콤마(,)) :").split(",")]
-# cn = input()
+# cn = input("도시 이름을 써주세요: ")
 
 
 #3

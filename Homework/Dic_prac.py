@@ -15,13 +15,18 @@ movie = {"공조": [530000, 1],
 # 일부 데이터 출력
 print(movie["공조"][0], "명", ",", movie["공조"][1], "등", sep="")
 
+
 # 전체 데이터 출력
-for key in movie.keys():
-    print(key, ":", movie[key])
+for 영화 in movie.keys():
+    print(영화, ":", movie[영화])
 
-for key, value in movie.items():
-    print(key, ":", value)
+for 영화 in movie.keys():
+    print("영화제목:", 영화, ",", "관객수&순위:", movie[영화])
 
+for 영화, value in movie.items():
+    print(영화, ":", value)
 
-
-
+def movies():
+    for 영화, value in movie.items():
+        print("영화제목: {}, 관객수&순위: {}".format(영화, value))
+movies()

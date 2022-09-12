@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-import itertools
+
 
 app = FastAPI()
 
@@ -19,40 +19,23 @@ def gugudan(n):
     return result
 print(gugudan(2))
 
+
 #2
-city_name = ["서울", "인천", "대구", "부산", "춘천", "대전"]
+city_name = []
 
+def station(city_name1):
+    if len(city_name1) > 0:
+        city_name1.clear()
+    cn = input("도시 이름을 써주세요(콤마로 구분): ").split(",")
+    # print(len(cn)) -> cn의 길이를 확인해보는 거니까 굳이 필요없는듯?
+    for n in cn:
+        n = n.strip()
+        city_name1.append(n)
+    return city_name1
 
-def station(city_name):
-    result = []
-    for name in city_name:
-        result.append(name)
-    return result
 print(station(city_name))
-
-
-cn = input("도시 이름을 써주세요(콤마로 구분): ").split(",")
-
-city_name.append(cn)
+station(city_name)
 print(city_name)
-# cn = input("도시 이름을 써주세요(콤마로 구분): ").split(",")
-# cn = [x for x in input("도시 이름을 써주세요(입력 구분자: 콤마(,)) :").split(",")]
-# cn = input("도시 이름을 써주세요: ")
 
 
-#3
-numbers = [1, 2, 3, 4, 5]
-result = []
-for n in numbers:
-    if n % 2 == 1:
-        result.append(n*2)
-print(result)
 
-#4
-city_name = ["서울", "인천", "대구", "부산", "춘천", "대전"]
-for name in city_name:
-    print(str(name)+"역입니다.")
-else:
-    print('Finish')
-
-city_name.append("경주")

@@ -33,6 +33,7 @@ def station(city_name1):
         city_name1.append(n)
     return city_name1
 
+print(city_name)
 print(station(city_name))
 station(city_name)
 print(city_name)

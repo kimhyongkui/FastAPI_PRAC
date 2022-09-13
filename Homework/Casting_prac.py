@@ -58,17 +58,3 @@ print(result, type(result))
 result = " ".join(map(str, city_name))
 print(result)
 
-# # 리스트를 numpy 배열(array)로 변환
-# import numpy as np
-# arr = np.array(city_name)
-# print(type(arr))
-
-# 왜 안대지?
-# list1 = [1,2,3,4,5]
-# print(type(list1))
-#
-# import numpy as np
-# arr = np.array(list1)
-# print(type(arr))
-#
-# print(arr + arr)

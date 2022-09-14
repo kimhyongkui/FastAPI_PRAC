@@ -26,11 +26,6 @@ app = FastAPI
 # for 영화, value in movie.items():
 #     print(영화, ":", value)
 #
-# def movies():
-#     for 영화, value in movie.items():
-#         print("영화제목: {}, 관객수&순위: {}".format(영화, value))
-# movies()
-
 # movie = []
 # for i in range(0,3):
 #     name = input('제목: ')
@@ -62,3 +57,4 @@ while True:
         print("잘못 선택하셨습니다.")
         break
 print("내가 만든 영화 순위표 :", dict_movie)
+

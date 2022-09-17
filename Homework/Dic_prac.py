@@ -34,6 +34,7 @@ app = FastAPI
 #     movie.append({'name': name, 'aud': aud, 'rank': rank})
 # print(movie)
 
+#1 수정전
 dict_movie = []
 while True:
     sel = int(input('1번은 딕셔너리 생성 계속, 2번은 종료 : '))
@@ -58,3 +59,4 @@ while True:
         break
 print("내가 만든 영화 순위표 :", dict_movie)
 
+#2 수정후

@@ -60,3 +60,26 @@ while True:
 print("내가 만든 영화 순위표 :", dict_movie)
 
 #2 수정후
+dict_movie = []
+while True:
+    sel = int(input('1번은 딕셔너리 생성 계속, 2번은 종료 : '))
+    if sel == 1:
+        print("=====추가중======")
+        my_dict = []
+        while True:
+            name = input('제목: ')
+            aud = input('관객수: ')
+            rank = input('랭킹: ')
+            my_dict.append({'제목': name, '관객수': aud, '랭킹': rank})
+            finish = int(input('1번은 딕셔너리 요소 추가 계속, 2번은 종료 : '))
+            if finish == 2:
+                print("===== 딕셔너리 요소 추가 끝 =====")
+                break
+        dict_movie.append(my_dict)
+    elif sel == 2:
+        print("종료합니다.")
+        break
+    else:
+        print("잘못 선택하셨습니다.")
+        break
+print("내가 만든 영화 순위표 :", dict_movie)

@@ -94,6 +94,8 @@ app = FastAPI
 # 3. 수정 2번째
 tu_movie = []
 dic_movie = {}
+movie_list = []
+tmpTup = None
 totalRank, currentRank = 1, 1
 
 while True:
@@ -116,18 +118,14 @@ while True:
         print("잘못 선택하셨습니다.")
         break
 
-dic_movie, movie_list = {}, []
-tmpTup = None
-totalRank, currentRank = 1, 1
-
 if __name__ == "__main__":
     for tmpTup in tu_movie:
         tName = tmpTup[0]
-        tWeight = tmpTup[1]
-        if tName in dic_movie:  
-            dic_movie[tName] += tWeight
+        tAmount = tmpTup[1]
+        if tName in dic_movie:
+            dic_movie[tName] += tAmount
         else:
-            dic_movie[tName] = tWeight
+            dic_movie[tName] = tAmount
 
     print('--------------------')
     print("내가 만든 영화 순위표")
@@ -136,10 +134,10 @@ if __name__ == "__main__":
     print('제목  \t관객수\t순위')
     print('--------------------')
     print(movie_list[0][0], '\t', movie_list[0][1], '\t', currentRank)
-    # for i in range(1, len(movie_list)):
-    #     totalRank += 1
-    #     if movie_list[i][1] == movie_list[i-1][1]:
-    #         pass
-    #     else:
-    #         currentRank = totalRank
-    #     print(movie_list[i][0], '\t', movie_list[i][1], '\t', currentRank)
+    for i in range(1, len(movie_list)):
+        totalRank += 1
+        if movie_list[i][1] == movie_list[i-1][1]:
+            pass
+        else:
+            currentRank = totalRank
+        print(movie_list[i][0], '\t', movie_list[i][1], '\t', currentRank)

@@ -1,5 +1,7 @@
-from fastapi import FastAPI
+import operator
 
+from fastapi import FastAPI
+import re
 app = FastAPI
 
 # 1. Dict 형식인 변수 생성
@@ -34,7 +36,7 @@ app = FastAPI
 #     movie.append({'name': name, 'aud': aud, 'rank': rank})
 # print(movie)
 
-# 1 수정전
+# 1. 수정전
 # dict_movie = []
 # while True:
 #     sel = int(input('1번은 딕셔너리 생성 계속, 2번은 종료 : '))
@@ -65,17 +67,43 @@ app = FastAPI
 # 3. Append를 2번 사용했는데 굳이 이렇게 했어야 하는가?
 # 4. 딕셔너리를 n번 추가하기 -> n번 입력후 계속 추가할건지 물어보기
 
-# 2 수정후
-dict_movie = []
+# 2. 수정후
+# dict_movie = []
+# while True:
+#     count = int(input('반복할 횟수를 입력하세요: '))
+#     if count > 0:
+#         for i in range(1, count + 1, 1):
+#             print("=====추가중======")
+#             name = input('제목: ')
+#             aud = input('관객수: ')
+#             rank = input('랭킹: ')
+#             dict_movie.append({'제목': name, '관객수': aud, '랭킹': rank})
+#             if i == count:
+#                 finish = int(input('1번은 딕셔너리 요소 추가 계속, 2번은 종료 : '))
+#                 if finish != 1:
+#                     print("===== 딕셔너리 요소 추가 끝 =====")
+#                     break
+#     elif count == 0:
+#         print("종료합니다.")
+#         break
+#     else:
+#         print("잘못 선택하셨습니다.")
+#         break
+# print("내가 만든 영화 순위표 :", *dict_movie, sep='\n')  #리스트 이름 앞에 "*"붙이면 괄호 생략함
+
+# 3. 수정 2번째
+tu_movie = []
+dic_movie = {}
+totalRank, currentRank = 1, 1
+
 while True:
     count = int(input('반복할 횟수를 입력하세요: '))
     if count > 0:
         for i in range(1, count + 1, 1):
             print("=====추가중======")
             name = input('제목: ')
-            aud = input('관객수: ')
-            rank = input('랭킹: ')
-            dict_movie.append({'제목': name, '관객수': aud, '랭킹': rank})
+            aud = int(input('관객수: '))
+            tu_movie.append((name, aud))
             if i == count:
                 finish = int(input('1번은 딕셔너리 요소 추가 계속, 2번은 종료 : '))
                 if finish != 1:
@@ -87,4 +115,31 @@ while True:
     else:
         print("잘못 선택하셨습니다.")
         break
-print("내가 만든 영화 순위표 :", *dict_movie, sep='\n')  #리스트 이름 앞에 "*"붙이면 괄호 생략함
+
+dic_movie, movie_list = {}, []
+tmpTup = None
+totalRank, currentRank = 1, 1
+
+if __name__ == "__main__":
+    for tmpTup in tu_movie:
+        tName = tmpTup[0]
+        tWeight = tmpTup[1]
+        if tName in dic_movie:  
+            dic_movie[tName] += tWeight
+        else:
+            dic_movie[tName] = tWeight
+
+    print('--------------------')
+    print("내가 만든 영화 순위표")
+    movie_list = sorted(dic_movie.items(), key=operator.itemgetter(1), reverse=True)
+    print(movie_list)
+    print('제목  \t관객수\t순위')
+    print('--------------------')
+    print(movie_list[0][0], '\t', movie_list[0][1], '\t', currentRank)
+    # for i in range(1, len(movie_list)):
+    #     totalRank += 1
+    #     if movie_list[i][1] == movie_list[i-1][1]:
+    #         pass
+    #     else:
+    #         currentRank = totalRank
+    #     print(movie_list[i][0], '\t', movie_list[i][1], '\t', currentRank)

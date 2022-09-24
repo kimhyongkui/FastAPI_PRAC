@@ -130,6 +130,7 @@ if __name__ == "__main__":
     print('--------------------')
     print("내가 만든 영화 순위표")
     movie_list = sorted(dic_movie.items(), key=operator.itemgetter(1), reverse=True)
+    # .items() : 딕셔너리 변수에만 사용할 수 있고, 튜플 형태로 구분한다
     print(movie_list)
     print('제목  \t관객수\t순위')
     print('--------------------')

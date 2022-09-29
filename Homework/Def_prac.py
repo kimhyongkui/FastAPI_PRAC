@@ -39,4 +39,9 @@ station(city_name)
 print(city_name)
 
 
-
+def make_url(string) :
+    url = "www." + string + ".com"
+    return url
+make_url("naver")
+a = make_url("naver")
+print(a)

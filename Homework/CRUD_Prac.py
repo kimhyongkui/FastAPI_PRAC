@@ -1,5 +1,4 @@
 from fastapi import FastAPI
-from fastapi.encoders import jsonable_encoder
 from pydantic import BaseModel
 
 app = FastAPI()
@@ -20,7 +19,6 @@ items = {
     "Park": {"name": "박지성", "age": 42},
     "Son": {"name": "손흥민", "age": 31},
 }
-
 
 
 @app.get("/user/", tags=["User"])

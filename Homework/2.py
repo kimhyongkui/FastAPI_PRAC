@@ -8,17 +8,13 @@ b = "관객수"
 print(Input(a, b))
 
 
-# 반복
-name = a
-aud = b
-
+# 추가하는 함수
 def add(count):
-    dict_movie = []
     for i in range(1, count + 1, 1):
         print("=====추가중======")
-        dict_movie.append({'제목': a, '관객수': b})
+        name, aud = input("제목, 관객수 순서로 입력(콤마로 구분): ").split(",")
+        dict_movie.append({'제목': name, '관객수': aud})
         if i == count:
             finish = int(input('1번은 딕셔너리 요소 추가 계속, 2번은 종료 : '))
             if finish != 1:
                 print("===== 딕셔너리 요소 추가 끝 =====")
-

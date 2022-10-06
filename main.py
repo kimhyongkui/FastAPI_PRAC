@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 
+import requests
+
 app = FastAPI()
 
 db = []

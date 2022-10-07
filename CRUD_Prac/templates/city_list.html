@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h1>City list</h1>
+
+    {% if rsCity %}
+        {% for city in rsCity %}
+            <div>
+                {{city.name}} - {{city.timezone}}
+            </div>
+        {% endfor %}
+    {% else %}
+            <div>
+                No city...
+            </div>
+    {% endif %}
+
+</body>
+</html>

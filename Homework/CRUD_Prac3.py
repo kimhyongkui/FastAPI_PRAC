@@ -1,59 +1,96 @@
-from fastapi import FastAPI
-from typing import List
-from starlette.middleware.cors import CORSMiddleware
+from fastapi import FastAPI, Request
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
 
-from db import session
-from model import UserTable, User
+from pydantic import BaseModel
+
+import requests
 
 app = FastAPI()
-app.add_middlewate(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
 
-# Create-post / Read-get / Update-put,patch / Delete-delete
+db = []
 
+class City(BaseModel):
+    name: str
+    timezone: str
 
-@app.get("/users/", tags=["User"])
-def read_users():
-    users = session.query(UserTable).all()
+templates = Jinja2Templates(directory="templates")
 
-    return users
+## ------------------------------------------------------------------------------------
+## Models
+## ------------------------------------------------------------------------------------
 
-@app.get("/users/{user_id}", tags=["User"])
-def read_user(user_id: int):
-    user = session.query(UserTable).filter(UserTable.id == user.id).first()
+class City(BaseModel):
+    name: str
+    timezone: str
 
-    return read_user
-
-@app.post("/user/", tags=["User"])
-def users(name: str, age: int):
-
-    user = UserTable()
-    user.name = name
-    user.age = age
-
-    session.add(user)
-    session.commit()
-    return f"{name} created..."
-
-@app.put("/users/", tags=["User"])
-def update_users(users: List[User]):
-    for i in users:
-        user = session.query(UserTable).filter(UserTable.id == i.id).first()
-        user.name = i_name
-        user.age = i.age
-
-    # users[0].name
-    return f"{users[0].name} updated..."
+class CityModify(BaseModel):
+    id: int
+    name: str
+    timezone: str
 
 
-@app.delete("/user/", tags=["User"])
-def delete_users(user_id: int):
-    user = session.query(UserTable).filter(UserTable.id == user.id).delete()
-    session.commit()
+@app.get("/")
+async def root():
+    return {"message": "Hello World"}
 
-    return read_users
+
+@app.get('/cities', response_class=HTMLResponse)
+def get_cities(request: Request):
+    context = {}
+
+    rsCity = []
+
+    cnt = 0
+    for city in db:
+        str = f"http://worldtimeapi.org/api/timezone/{city['timezone']}"
+        #print(str)
+        r = requests.get(str)
+        cur_time = r.json()['datetime']
+
+        cnt += 1
+
+        rsCity.append({'id': cnt, 'name':city['name'], 'timezone':city['timezone'], 'current_time': cur_time})
+
+    #print(rsCity)
+
+    context['request'] = request
+    context['rsCity'] = rsCity
+
+    return templates.TemplateResponse("city_list.html", context)
+
+
+@app.get('/cities/{city_id}', response_class=HTMLResponse)
+def get_city(request: Request, city_id: int):
+    city = db[city_id-1]
+    r = requests.get(f"http://worldtimeapi.org/api/timezone/{city['timezone']}")
+    cur_time = r.json()['datetime']
+
+    # return {'name':city['name'], 'timezone':city['timezone'], 'current_time': cur_time}
+    context = {'request':request, 'name':city['name'], 'timezone':city['timezone'], 'current_time': cur_time}
+    return templates.TemplateResponse("city_detail.html", context)
+
+
+@app.post('/cities')
+def create_city(city: City):
+
+    db.append(city.dict())
+
+    return db[-1]
+
+
+@app.put('/cities')
+def modify_city(city: CityModify):
+
+    db[city.id-1] = { 'name': city.name, 'timezone': city.timezone }
+
+    return db[city.id-1]
+
+
+@app.delete('/cities/{city_id}')
+def delete_city(city_id: int):
+    db.pop(city_id-1)
+
+    return {'result_msg':'Deleted...'}
+
+

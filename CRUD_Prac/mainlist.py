@@ -82,9 +82,9 @@ def create_city(city: City):
 @app.put('/cities')
 def modify_city(city: CityModify):
 
-    db[city.id-1] = { 'name': city.name, 'timezone': city.timezone }
+    db[city.id] = {'name': city.name, 'timezone': city.timezone}
 
-    return db[city.id-1]
+    return db[city.id]
 
 
 @app.delete('/cities/{city_id}')

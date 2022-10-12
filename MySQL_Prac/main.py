@@ -41,12 +41,6 @@ def create_city(city: City):
 
     return db[-1]
 
-@app.put('/cities')
-def modify_city(city: CityModify):
-
-    db[city.id-1] = { 'name': city.name, 'timezone': city.timezone }
-
-    return db[city.id-1]
 
 @app.delete('/cities/{city_id}')
 def create_city(city_id: int):

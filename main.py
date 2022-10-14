@@ -11,6 +11,11 @@ class City(BaseModel):
     name: str
     timezone: str
 
+class CityModify(BaseModel):
+    id: int
+    name: str
+    timezone: str
+
 
 @app.get("/")
 async def root():
@@ -43,6 +48,12 @@ def create_city(city: City):
     db.append(city.dict())
     return db[-1]
 
+@app.put('/cities')
+def modify_city(city: CityModify):
+
+    db[city.id-1] = { 'name': city.name, 'timezone': city.timezone }
+
+    return db[city.id-1]
 
 @app.delete('/cities/{city_id}')
 def delete_city(city_id: int):

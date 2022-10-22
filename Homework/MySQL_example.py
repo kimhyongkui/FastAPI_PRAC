@@ -13,23 +13,18 @@ cursor = conn.cursor()
 # cursor.fetchone()
 
 #SQL 구문만들기 (CRUD SQL 구문 등)
-# sql = '''
-#     CREATE TABLE product (
-#         PRODUCT_CODE VARCHAR(20) NOT NULL,
-#         TITLE VARCHAR(200) NOT NULL,
-#         ORI_PRICE INT,
-#         DISCOUNT_PRICE INT,
-#         DISCOUNT_PERCENT INT,
-#         DELIVERY VARCHAR(2),
-#         PRIMARY KEY(PRODUCT_CODE)
-#     );
-# '''
+sql = """
+    CREATE TABLE user(
+        id INT,
+        name VARCHAR(50) NOT NULL,
+        age INT NOT NULL
+    );
+"""
 #테이블 생성(삽입)
-for index in range(10):
-    product_code = 215673140 + index + 1
-    sql = """INSERT INTO product VALUES(
-    '""" + str(product_code) + """', '스위트바니 여름신상5900원~롱원피스티셔츠/긴팔/반팔', 23000, 6900, 70, 'F'); """
-    print(sql)
+
+
+#SQL 구문 실행하기
+cursor.execute(sql)
 
 #데이터 검색(조회)
 
@@ -37,11 +32,7 @@ for index in range(10):
 
 #데이터 삭제
 
-#SQL 구문 실행하기
-cursor.execute(sql)
-
-
-#INSERT, UPDATE, DELETE 구문은 DB에 저장된 데이터의 변화를 주기에 커밋을 꼭 해주어야 DB에 반영된다
+# INSERT, UPDATE, DELETE 구문은 DB에 저장된 데이터의 변화를 주기에 커밋을 꼭 해주어야 DB에 반영된다
 conn.commit()
 
 #DB 연결 끊어주기

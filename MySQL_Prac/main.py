@@ -1,65 +1,59 @@
 from fastapi import FastAPI
-from pydantic import BaseModel
+from typing import List
+from starlette.middleware.cors import CORSMiddleware
 
-import requests
+from database import session
+from models import UserTable, User
 
 app = FastAPI()
 
-db = []
-
-class City(BaseModel):
-    name: str
-    timezone: str
-
-class CityModify(BaseModel):
-    id: int
-    name: str
-    timezone: str
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
+@app.get("/users")
+def read_users():
+    users = session.query(UserTable).all()
+    return users
+
+@app.get("/users/{user_id}")
+def read_user(user_id: int):
+    user = session.query(UserTable).filter(UserTable.id == user_id).first()
+    return user
+
+@app.post("/user")
+async def create_user(name: str, age: int):
+
+    user = UserTable()
+    user.name = name
+    user.age = age
+
+    session.add(user)
+    session.commit()
+
+    return f"{name} created..."
+
+@app.put("/users")
+async def update_users(users: List[User]):
+
+    for i in users:
+        user = session.query(UserTable).filter(UserTable.id == i.id).first()
+        user.name = i.name
+        user.age = i.age
+        session.commit()
+
+    return f"{users[0].name} updated..."
 
 
-@app.get('/cities')
-def get_cities():
-    results = []
-    for city in db:
-        str = f"http://worldtimeapi.org/api/timezone/{city['timezone']}"
-        print(str)
-        r = requests.get(str)
-        cur_time = r.json()['datetime']
-        results.append({'name':city['name'], 'timezone':city['timezone'], 'current_time': cur_time})
+@app.delete("/user")
+async def delete_users(userid: int):
 
-    return results
+    user = session.query(UserTable).filter(UserTable.id == userid).delete()
+    session.commit()
 
-
-@app.get('/cities/{city_id}')
-def get_city(city_id: int):
-    city = db[city_id-1]
-    r = requests.get(f"http://worldtimeapi.org/api/timezone/{city['timezone']}")
-    cur_time = r.json()['datetime']
-    return {'name':city['name'], 'timezone':city['timezone'], 'current_time': cur_time}
-
-
-@app.post('/cities')
-def create_city(city: City):
-    db.append(city.dict())
-    return db[-1]
-
-@app.put('/cities')
-def modify_city(city: CityModify):
-
-    db[city.id-1] = { 'name': city.name, 'timezone': city.timezone }
-
-    return db[city.id-1]
-
-@app.delete('/cities/{city_id}')
-def delete_city(city_id: int):
-    db.pop(city_id-1)
-    return {}
-
-
-
-
+    return f"User deleted..."

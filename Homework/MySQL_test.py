@@ -2,7 +2,7 @@ import pymysql
 
 db = pymysql.connect(
     user='root',
-    password='po919480!@',
+    password='0000',
     db='bus',
     host='localhost',
     charset='utf8'

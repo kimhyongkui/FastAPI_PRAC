@@ -17,8 +17,3 @@ class User(BaseModel):
     age  : int
 
 
-def main():
-    Base.metadata.create_all(bind=ENGINE)
-
-if __name__ == "__main__":
-    main()

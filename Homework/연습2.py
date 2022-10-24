@@ -47,4 +47,3 @@ def create_city(city_id: int):
     db.pop(city_id-1)
 
     return {}
-kimfg_eur

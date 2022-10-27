@@ -13,7 +13,7 @@ url = "http://ws.bus.go.kr/api/rest/busRouteInfo/getStaionByRoute?ServiceKey={}&
 
 
 
-from database import session
+from db import session
 from models import UserTable, User
 
 app = FastAPI()

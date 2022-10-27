@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String
 from pydantic import BaseModel
-from database import Base
-from database import ENGINE
+from db import Base
+from db import ENGINE
 
 
 class UserTable(Base):

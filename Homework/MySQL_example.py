@@ -37,3 +37,4 @@ conn.commit()
 
 #DB 연결 끊어주기
 conn.close()
+

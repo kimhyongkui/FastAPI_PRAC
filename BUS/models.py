@@ -7,13 +7,13 @@ from db import ENGINE
 class UserTable(Base):
     __tablename__ = 'user'
     id = Column(Integer, primary_key=True, autoincrement=True)
-    name = Column(String(30), nullable=True)
-    age = Column(Integer)
+    bus = Column(String(30), nullable=True)
+    station = Column(String(30), nullable=True)
 
 
 class User(BaseModel):
     id   : int
-    name : str
-    age  : int
+    bus : str
+    station  : str
 
 

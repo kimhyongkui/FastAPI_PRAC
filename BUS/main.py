@@ -1,15 +1,12 @@
-
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
-import requests, xmltodict, json
 from typing import List
 from db import session
-from models import UserTable, User
+from models import StationTable, Station
 
 app = FastAPI()
 
-key = "sh%2F1QzN2LTDtEC%2BJVBs0xY8tKrpfWk%2F5uHe88YcwMk59ICjn2dhJ6tSBL5DnWTkBDlyn5YRqJR1IQPXex6TqFQ%3D%3D"
-url = "http://ws.bus.go.kr/api/rest/busRouteInfo/getStaionByRoute?ServiceKey={}&busRouteId=100100118".format(key)
+
 
 app.add_middleware(
     CORSMiddleware,
@@ -19,40 +16,45 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-content = requests.get(url).content
-dict=xmltodict.parse(content)
+
+@app.get("/stations")
+def read_stations():
+    stations = session.query(StationTable).all()
+    return stations
+
+@app.get("/stations/{station_id}")
+def read_station(station_id: int):
+    station = session.query(StationTable).filter(StationTable.id == station_id).first()
+    return station
+
+@app.post("/station")
+async def create_station(bus: str, station_name: str):
+
+    station = StationTable()
+    station.bus = bus
+    station.station_name = station_name
+
+    session.add(station)
+    session.commit()
+
+    return f"{bus} created..."
+
+@app.put("/stations")
+async def update_stations(stations: List[Station]):
+
+    for i in stations:
+        station = session.query(StationTable).filter(StationTable.id == i.id).first()
+        station.bus = i.bus
+        station.station_name = i.station_name
+        session.commit()
+
+    return f"{stations[0].bus} updated..."
 
 
-jsonString = json.dumps(dict['ServiceResult']['msgBody']['itemList'], ensure_ascii=False)
-jsonObj = json.loads(jsonString)
+@app.delete("/station")
+async def delete_stations(stationid: int):
 
-for i in range(len(jsonObj)):
-    print(jsonObj[i]['stationNm'])
+    user = session.query(StationTable).filter(StationTable.id == stationid).delete()
+    session.commit()
 
-
-@app.get("/users")
-def read_users():
-
-    return
-
-@app.get("/users/{user_id}")
-def read_user():
-
-    return
-
-@app.post("/user")
-async def create_user():
-
-    return
-
-@app.put("/users")
-async def update_users():
-
-
-    return
-
-
-@app.delete("/user")
-async def delete_users():
-
-    return
+    return f"Station deleted..."

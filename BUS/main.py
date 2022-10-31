@@ -4,8 +4,8 @@ from typing import List
 from db import session
 from models import StationTable, Station
 
-app = FastAPI()
 
+app = FastAPI()
 
 
 app.add_middleware(

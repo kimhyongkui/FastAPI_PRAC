@@ -5,7 +5,7 @@ from db import ENGINE
 
 
 class StationTable(Base):
-    __tablename__ = 'user'
+    __tablename__ = 'bus'
     id = Column(Integer, primary_key=True, autoincrement=True)
     bus = Column(String(30), nullable=True)
     station_name = Column(String(30), nullable=True)

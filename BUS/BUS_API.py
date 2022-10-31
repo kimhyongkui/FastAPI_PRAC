@@ -11,7 +11,7 @@ url = "http://ws.bus.go.kr/api/rest/busRouteInfo/getStaionByRoute?ServiceKey={}&
 
 content = requests.get(url).content # GET요청
 dict=xmltodict.parse(content) # XML을 dictionary로 파싱
-#파싱은 어떤 페이지(문서, html 등)에서 내가 원하는 데이터를 특정 패턴이나 순서로 추출해 가공하는 것
+
 
 jsonString = json.dumps(dict['ServiceResult']['msgBody']['itemList'], ensure_ascii=False) # dict을 json으로 변환
 jsonObj = json.loads(jsonString) # json을 dict으로 변환

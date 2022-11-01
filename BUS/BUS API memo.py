@@ -20,10 +20,16 @@ jsonObj = json.loads(jsonString) # JSON 디코딩, json을 dict으로 변환
 # for i in range(len(jsonObj)):
 #     print(jsonObj[i]['busRouteId'], jsonObj[i]['busRouteNm'])
 
-def getBusRouteId(strSrch):
-    if strSrch == jsonObj['busRouteNm']:
-        strSrch == jsonObj['busRouteId']
-    return strSrch
+# def getBusRouteId(strSrch):
+#     for i in range(len(jsonObj)):
+#         if strSrch == jsonObj[i]['busRouteNm']:
+#             strSrch == jsonObj[i]['busRouteId']
+#     return jsonObj[i]['busRouteId']
 
-busRouteNm = 6001
+def getBusRouteId(busRouteNm):
+    for i in range(len(jsonObj)):
+        if jsonObj[i]['busRouteId'] == jsonObj[i]['busRouteNm']:
+            busRouteNm == jsonObj[i]['busRouteId']
+    return jsonObj[i]['busRouteId']
+
 print(getBusRouteId(6001))

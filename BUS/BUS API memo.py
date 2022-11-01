@@ -17,7 +17,13 @@ jsonString = json.dumps(dict['ServiceResult']['msgBody']['itemList'], ensure_asc
 jsonObj = json.loads(jsonString) # JSON 디코딩, json을 dict으로 변환
 
 
-for i in range(len(jsonObj)):
-    print(jsonObj[i]['busRouteId'], jsonObj[i]['busRouteNm'])
+# for i in range(len(jsonObj)):
+#     print(jsonObj[i]['busRouteId'], jsonObj[i]['busRouteNm'])
 
+def getBusRouteId(strSrch):
+    if strSrch == jsonObj['busRouteNm']:
+        strSrch == jsonObj['busRouteId']
+    return strSrch
 
+busRouteNm = 6001
+print(getBusRouteId(6001))

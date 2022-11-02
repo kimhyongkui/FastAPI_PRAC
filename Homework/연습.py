@@ -44,3 +44,11 @@ async def update_item(item_id: str, item: Item):
     items[item_id] = update_item_encoded
     return update_item_encoded
 
+
+
+# def Output(a, b):
+#     add = a + b
+#     print(a,'+',b,'=',add,'입니다.', sep='')
+#     return add
+#
+# print(Output(3,8))

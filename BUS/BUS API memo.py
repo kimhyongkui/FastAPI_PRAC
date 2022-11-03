@@ -32,12 +32,15 @@ jsonObj = json.loads(jsonString) # JSON 디코딩, json을 dict으로 변환
 #             busRouteNm == jsonObj[i]['busRouteId']
 #     return jsonObj[i]['busRouteId']
 
+
 def getBusRouteId():
+    bus_list = []
     for bus in jsonObj:
         bus_name = bus['busRouteNm']
         bus_Id = bus['busRouteId']
+        bus_list.append((bus_name, bus_Id))
         result = f'{bus_name}의 버스ID는 {bus_Id}입니다.'
-        print(result)
-    return print(result)
+
+    return result
 
 print(getBusRouteId())

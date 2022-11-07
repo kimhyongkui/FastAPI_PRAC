@@ -1,5 +1,7 @@
 from fastapi import FastAPI
 import requests, xmltodict, json
+import pandas as pd
+
 
 app = FastAPI()
 
@@ -51,7 +53,5 @@ def getBusRouteId(busnum):
         bus_dict[bus_name] = bus_Id
         if busnum == bus_name:
             print(f'{bus_name}의 버스ID는 {bus_Id}입니다.')
+
     return bus_dict
-
-print(bus_dict)
-

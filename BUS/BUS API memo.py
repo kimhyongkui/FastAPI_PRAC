@@ -31,16 +31,27 @@ jsonObj = json.loads(jsonString) # JSON 디코딩, json을 dict으로 변환
 #             busRouteNm == jsonObj[i]['busRouteId']
 #     return jsonObj[i]['busRouteId']
 
+# getBusRouteID( 매개변수는 버스 번호)
+# 	bus_dict = {}
+# 	for문 버스 숫자 in jsonObj:
+# 	bus_name = bus['busRouteNm']
+# 	bus_Id = bus['busRouteId']
+# 	버스 네임과 버스 아이디를 묶어서 딕셔너리화 시켜서
+# 	bus_dict에 집어넣는다
+# 	만약 버스번호가 버스 네임과 같다면 버스아이디를 출력시킨다
+# 	출력 f'{bus_name}의 버스ID는 {bus_Id}입니다.'
 
-def getBusRouteId():
+bus_dict = {}
+def getBusRouteId(busnum):
+    global bus_dict
     bus_dict = {}
     for bus in jsonObj:
         bus_name = bus['busRouteNm']
         bus_Id = bus['busRouteId']
-        bus_dict.setdefault('bus_name', 'bus_Id')
-        # result = f'{bus_name}의 버스ID는 {bus_Id}입니다.'
-        print(bus_dict)
+        bus_dict[bus_name] = bus_Id
+        if busnum == bus_name:
+            print(f'{bus_name}의 버스ID는 {bus_Id}입니다.')
     return bus_dict
 
-print(result)
+print(bus_dict)
 

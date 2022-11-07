@@ -17,44 +17,44 @@ app.add_middleware(
 )
 
 
-@app.get("/stations")
-def read_stations():
-    stations = session.query(StationTable).all()
-    return stations
+@app.get("/buses")
+def read_buses():
+    buses = session.query(BusTable).all()
+    return buses
 
-@app.get("/stations/{station_id}")
-def read_station(station_id: int):
-    station = session.query(StationTable).filter(StationTable.id == station_id).first()
-    return station
+@app.get("/buses/{bus_id}")
+def read_bus(bus_id: int):
+    bus = session.query(BusTable).filter(BusTable.id == bus_id).first()
+    return bus
 
-@app.post("/station")
-async def create_station(bus: str, station_name: str):
+@app.post("/bus")
+async def create_bus(bus: str, bus_name: str):
 
-    station = StationTable()
-    station.bus = bus
-    station.station_name = station_name
+    bus = BusTable()
+    bus.bus = bus
+    bus.bus_name = bus_name
 
-    session.add(station)
+    session.add(bus)
     session.commit()
 
     return f"{bus} created..."
 
-@app.put("/stations")
-async def update_stations(stations: List[Station]):
+@app.put("/buses")
+async def update_stations(buses: List[Bus]):
 
-    for i in stations:
-        station = session.query(StationTable).filter(StationTable.id == i.id).first()
-        station.bus = i.bus
-        station.station_name = i.station_name
+    for i in buses:
+        bus = session.query(BusTable).filter(BusTable.id == i.id).first()
+        bus.bus = i.bus
+        bus.bus_name = i.bus_name
         session.commit()
 
-    return f"{stations[0].bus} updated..."
+    return f"{buses[0].bus} updated..."
 
 
-@app.delete("/station")
-async def delete_stations(stationid: int):
+@app.delete("/bus")
+async def delete_stations(busid: int):
 
-    user = session.query(StationTable).filter(StationTable.id == stationid).delete()
+    user = session.query(BusTable).filter(BusTable.id == busid).delete()
     session.commit()
 
-    return f"Station deleted..."
+    return f"Bus deleted..."

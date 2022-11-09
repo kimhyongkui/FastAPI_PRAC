@@ -4,15 +4,13 @@ from db import Base
 from db import ENGINE
 
 
-class StationTable(Base):
+class BusTable(Base):
     __tablename__ = 'bus'
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    bus_name = Column(String(30), nullable=True)
+    bus_name = Column(String(45), nullable=True)
     bus_Id = Column(Integer)
 
 
-class Station(BaseModel):
-    id   : int
+class Bus(BaseModel):
     bus_name  : str
     bus_Id : int
 

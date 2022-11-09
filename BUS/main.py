@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 from typing import List
 from db import session
-from models import StationTable, Station
+from models import BusTable, Bus
 
 
 app = FastAPI()
@@ -28,23 +28,23 @@ def read_bus(bus_id: int):
     return bus
 
 @app.post("/bus")
-async def create_bus(bus: str, bus_name: str):
+async def create_bus(bus_Id: int, bus_name: str):
 
     bus = BusTable()
-    bus.bus = bus
+    bus.bus_Id = bus_Id
     bus.bus_name = bus_name
 
     session.add(bus)
     session.commit()
 
-    return f"{bus} created..."
+    return f"{bus_name} created..."
 
 @app.put("/buses")
 async def update_stations(buses: List[Bus]):
 
     for i in buses:
-        bus = session.query(BusTable).filter(BusTable.id == i.id).first()
-        bus.bus = i.bus
+        bus = session.query(BusTable).filter(BusTable.bus_Id == i.bus_id).first()
+        bus.bus_Id = i.bus_Id
         bus.bus_name = i.bus_name
         session.commit()
 
@@ -52,9 +52,9 @@ async def update_stations(buses: List[Bus]):
 
 
 @app.delete("/bus")
-async def delete_stations(busid: int):
+async def delete_stations(bus_id: int):
 
-    bus = session.query(BusTable).filter(BusTable.id == busid).delete()
+    bus = session.query(BusTable).filter(BusTable.bus_id == bus_id).delete()
     session.commit()
 
     return f"Bus deleted..."

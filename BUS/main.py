@@ -43,7 +43,7 @@ async def create_bus(bus_Id: int, bus_name: str):
 async def update_stations(buses: List[Bus]):
 
     for i in buses:
-        bus = session.query(BusTable).filter(BusTable.bus_Id == i.bus_id).first()
+        bus = session.query(BusTable).filter(BusTable.id == i.bus_id).first()
         bus.bus_Id = i.bus_Id
         bus.bus_name = i.bus_name
         session.commit()
@@ -54,7 +54,7 @@ async def update_stations(buses: List[Bus]):
 @app.delete("/bus")
 async def delete_stations(bus_id: int):
 
-    bus = session.query(BusTable).filter(BusTable.bus_id == bus_id).delete()
+    bus = session.query(BusTable).filter(BusTable.id == bus_id).delete()
     session.commit()
 
     return f"Bus deleted..."

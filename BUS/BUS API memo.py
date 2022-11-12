@@ -1,6 +1,5 @@
 from fastapi import FastAPI
 import requests, xmltodict, json
-import pandas as pd
 
 
 app = FastAPI()
@@ -18,21 +17,6 @@ jsonString = json.dumps(dict['ServiceResult']['msgBody']['itemList'], ensure_asc
 jsonObj = json.loads(jsonString) # JSON 디코딩, json을 dict으로 변환
 
 
-# for i in range(len(jsonObj)):
-#     print(jsonObj[i]['busRouteId'], jsonObj[i]['busRouteNm'])
-
-# def getBusRouteId(strSrch):
-#     for i in range(len(jsonObj)):
-#         if strSrch == jsonObj[i]['busRouteNm']:
-#             strSrch == jsonObj[i]['busRouteId']
-#     return jsonObj[i]['busRouteId']
-
-# def getBusRouteId(busRouteNm):
-#     for i in range(len(jsonObj)):
-#         if jsonObj[i]['busRouteId'] == jsonObj[i]['busRouteNm']:
-#             busRouteNm == jsonObj[i]['busRouteId']
-#     return jsonObj[i]['busRouteId']
-
 # getBusRouteID( 매개변수는 버스 번호)
 # 	bus_dict = {}
 # 	for문 버스 숫자 in jsonObj:
@@ -44,14 +28,13 @@ jsonObj = json.loads(jsonString) # JSON 디코딩, json을 dict으로 변환
 # 	출력 f'{bus_name}의 버스ID는 {bus_Id}입니다.'
 
 
-def getBusRouteId(busnum):
+def getBusRouteId(bus_number):
     bus_dict = {}
     for bus in jsonObj:
         bus_name = bus['busRouteNm']
         bus_Id = bus['busRouteId']
         bus_dict[bus_name] = bus_Id
-        if busnum == bus_name:
+        if bus_number == bus_name:
             print(f'{bus_name}의 버스ID는 {bus_Id}입니다.')
 
     return bus_dict
-print(getBusRouteId(1))

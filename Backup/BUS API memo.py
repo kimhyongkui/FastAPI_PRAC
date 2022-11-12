@@ -55,3 +55,5 @@ def getBusRouteId(busnum):
 
     return bus_dict
 print(getBusRouteId(1))
+
+api 요청을 통해서 파싱

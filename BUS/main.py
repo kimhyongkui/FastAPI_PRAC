@@ -17,7 +17,6 @@ app.add_middleware(
 )
 
 
-
 @app.get("/buses")
 def read_buses():
     buses = session.query(BusTable).all()
@@ -25,23 +24,15 @@ def read_buses():
 
 @app.get("/buses/{bus_id}")
 def read_bus(bus_id: int):
-
-    bus_dict = {}
-    for bus in jsonObj:
-        bus_name = bus['busRouteNm']
-        bus_Id = bus['busRouteId']
-        bus_dict[bus_name] = bus_Id
-
-
-    bus = session.query(BusTable).filter(BusTable.id == bus_id).first()
+    bus = session.query(BusTable).filter(BusTable.bus_id == bus_id).first()
     return bus
 
 @app.post("/bus")
-async def create_bus(bus_Id: int, bus_name: str):
+async def create_bus(bus_name: str, bus_Id: int):
 
     bus = BusTable()
-    bus.bus_Id = bus_Id
     bus.bus_name = bus_name
+    bus.bus_Id = bus_Id
 
     session.add(bus)
     session.commit()

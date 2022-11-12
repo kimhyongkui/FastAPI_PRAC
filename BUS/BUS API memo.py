@@ -22,7 +22,7 @@ jsonObj = json.loads(jsonString) # JSON 디코딩, json을 dict으로 변환
 # 	for문 버스 숫자 in jsonObj:
 # 	bus_name = bus['busRouteNm']
 # 	bus_Id = bus['busRouteId']
-# 	버스 네임과 버스 아이디를 묶어서 딕셔너리화 시켜서
+# 	버스 네임과 버스 아이디를 묶고 딕셔너리화 시켜서
 # 	bus_dict에 집어넣는다
 # 	만약 버스번호가 버스 네임과 같다면 버스아이디를 출력시킨다
 # 	출력 f'{bus_name}의 버스ID는 {bus_Id}입니다.'

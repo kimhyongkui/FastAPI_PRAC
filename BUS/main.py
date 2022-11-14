@@ -28,11 +28,11 @@ def read_bus(bus_id: int):
     return bus
 
 @app.post("/bus")
-async def create_bus(bus_name: str, bus_Id: int):
+async def create_bus(bus_name: str, bus_id: int):
 
     bus = BusTable()
     bus.bus_name = bus_name
-    bus.bus_Id = bus_Id
+    bus.bus_id = bus_id
 
     session.add(bus)
     session.commit()
@@ -43,8 +43,8 @@ async def create_bus(bus_name: str, bus_Id: int):
 async def update_stations(buses: List[Bus]):
 
     for i in buses:
-        bus = session.query(BusTable).filter(BusTable.id == i.bus_id).first()
-        bus.bus_Id = i.bus_Id
+        bus = session.query(BusTable).filter(BusTable.bus_id == i.bus_id).first()
+        bus.bus_id = i.bus_id
         bus.bus_name = i.bus_name
         session.commit()
 

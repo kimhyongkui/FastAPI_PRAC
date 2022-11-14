@@ -1,9 +1,15 @@
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, scoped_session
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+
 
 user_name = 'root'
-user_pwd = '0000'
+user_pwd = os.getenv('user_pwd')
 db_host = '127.0.0.1'
 db_name = 'prac'
 

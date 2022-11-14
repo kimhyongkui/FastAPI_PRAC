@@ -1,9 +1,15 @@
 import requests, xmltodict, json
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+key = os.getenv('key')
+
+url = f"http://ws.bus.go.kr/api/rest/busRouteInfo/getBusRouteList?ServiceKey={key}"
+# f-string을 이용해서 포매팅
 
 
-key = "sh%2F1QzN2LTDtEC%2BJVBs0xY8tKrpfWk%2F5uHe88YcwMk59ICjn2dhJ6tSBL5DnWTkBDlyn5YRqJR1IQPXex6TqFQ%3D%3D"
-url = "http://ws.bus.go.kr/api/rest/busRouteInfo/getBusRouteList?ServiceKey={}".format(key)
-# .format을 이용해서 포매팅
+
 
 content = requests.get(url).content # GET요청
 dict = xmltodict.parse(content) # XML을 dictionary로 파싱
@@ -11,6 +17,7 @@ dict = xmltodict.parse(content) # XML을 dictionary로 파싱
 
 jsonString = json.dumps(dict['ServiceResult']['msgBody']['itemList'], ensure_ascii=False) # dict을 json으로 변환
 jsonObj = json.loads(jsonString) # JSON 디코딩, json을 dict으로 변환
+
 
 
 # getBusRouteID( 매개변수는 버스 번호)

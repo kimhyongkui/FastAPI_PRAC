@@ -8,12 +8,11 @@ class BusTable(Base):
     __tablename__ = 'bus'
     # id = Column(Integer, primary_key=True, autoincrement=True)
     bus_name = Column(String(45), primary_key=True, nullable=True)
-    bus_Id = Column(Integer)
+    bus_id = Column(Integer)
 
 
 class Bus(BaseModel):
     # id : int
     bus_name  : str
-    bus_Id : int
-
+    bus_id : int
 

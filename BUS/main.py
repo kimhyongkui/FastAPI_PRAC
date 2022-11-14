@@ -23,8 +23,8 @@ def read_buses():
     return buses
 
 @app.get("/buses/{bus_id}")
-def read_bus(bus_id: int):
-    bus = session.query(BusTable).filter(BusTable.bus_id == bus_id).first()
+def read_bus(busid: int):
+    bus = session.query(BusTable).filter(BusTable.bus_id == busid).first()
     return bus
 
 @app.post("/bus")

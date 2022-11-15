@@ -1,9 +1,10 @@
 import requests, xmltodict, json
-import os
 from dotenv import load_dotenv
+import os
 
 load_dotenv()
 key = os.getenv('key')
+# key = os.environ.get('key')
 
 url = f"http://ws.bus.go.kr/api/rest/busRouteInfo/getBusRouteList?ServiceKey={key}"
 # f-string을 이용해서 포매팅

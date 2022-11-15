@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String
 from pydantic import BaseModel
 from db import Base
-from db import ENGINE
+
 
 
 class BusTable(Base):

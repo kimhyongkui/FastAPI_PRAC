@@ -54,7 +54,7 @@ async def update_stations(buses: List[Bus]):
 @app.delete("/bus")
 async def delete_stations(bus_id: int):
 
-    bus = session.query(BusTable).filter(BusTable.id == bus_id).delete()
+    bus = session.query(BusTable).filter(BusTable.bus_id == bus_id).delete()
     session.commit()
 
-    return f"Bus deleted..."
+    return f"{bus} deleted..."

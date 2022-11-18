@@ -27,7 +27,7 @@ def getBusRouteId(bus_number):
             print(f'{bus_name}의 버스ID는 {bus_Id}입니다.')
 
 
-  
+
 
 
 

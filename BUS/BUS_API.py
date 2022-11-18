@@ -26,9 +26,18 @@ def getBusRouteId(bus_number):
         if bus_number == bus_name:
             print(f'{bus_name}의 버스ID는 {bus_Id}입니다.')
 
-    return bus_dict
 
-getBusRouteId(6001)
+  
 
+
+
+# def create_bus(bus_name: str, bus_id: int):
+#
+#     bus = BusTable()
+#     bus.bus_name = bus_name
+#     bus.bus_id = bus_id
+#
+#     session.add(bus)
+#     session.commit()
 
 

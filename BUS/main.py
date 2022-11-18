@@ -28,7 +28,7 @@ def read_bus(busid: int):
     return bus
 
 @app.post("/bus")
-async def create_bus(bus_name: str, bus_id: int):
+def create_bus(bus_name: str, bus_id: int):
 
     bus = BusTable()
     bus.bus_name = bus_name
@@ -40,7 +40,7 @@ async def create_bus(bus_name: str, bus_id: int):
     return f"{bus_name} created..."
 
 @app.put("/buses")
-async def update_stations(buses: List[Bus]):
+def update_stations(buses: List[Bus]):
 
     for i in buses:
         bus = session.query(BusTable).filter(BusTable.bus_id == i.bus_id).first()
@@ -52,7 +52,7 @@ async def update_stations(buses: List[Bus]):
 
 
 @app.delete("/bus")
-async def delete_stations(bus_id: int):
+def delete_stations(bus_id: int):
 
     bus = session.query(BusTable).filter(BusTable.bus_id == bus_id).delete()
     session.commit()

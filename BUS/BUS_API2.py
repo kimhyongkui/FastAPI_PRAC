@@ -2,11 +2,11 @@ import requests, xmltodict, json
 from dotenv import load_dotenv
 import os
 import pymysql
-from db
+
 
 load_dotenv()
 key = os.getenv('key')
-# key = os.environ.get('key')
+# key = os.environ.get('key') getenv가 좀더 간결한 코드로 같은 효과
 
 url = f"http://ws.bus.go.kr/api/rest/busRouteInfo/getBusRouteList?ServiceKey={key}"
 # f-string을 이용해서 포매팅

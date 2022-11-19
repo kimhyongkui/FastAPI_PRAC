@@ -1,23 +1,8 @@
-from fastapi import FastAPI
-from starlette.middleware.cors import CORSMiddleware
-from typing import List
-from db import session
-from models import BusTable, Bus
 import requests, xmltodict, json
 from dotenv import load_dotenv
 import os
-
-
-app = FastAPI()
-
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+import pymysql
+from db
 
 load_dotenv()
 key = os.getenv('key')
@@ -43,16 +28,18 @@ def getBusRouteId(bus_number):
         if bus_number == bus_name:
             print(f'{bus_name}의 버스ID는 {bus_Id}입니다.')
 
-getBusRouteId(6001)
 
+def db_insert(bus_dict):
+    db = pymysql.connect(host='localhost',
+                           port=3306,
+                           user='root',
+                           passwd=os.getenv('user_pwd'),
+                           db='127.0.0.1',
+                           charset='utf8')
+    cursor = db.cursor()
 
-@app.get("/buses")
-def read_buses():
-    buses = session.query(BusTable).all()
-    return buses
-
-@app.get("/buses/{bus_id}")
-def read_bus(busid: int):
-    bus = session.query(BusTable).filter(BusTable.bus_id == busid).first()
-    return bus
+    sql = "INSERT INTO bus(bus_name,bus_id) values(%s, %s)"
+    cursor.execute(sql, bus_dict)
+    db.commit()
+    db.close()
 

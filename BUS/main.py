@@ -17,6 +17,7 @@ app.add_middleware(
 )
 
 
+
 @app.get("/buses")
 def read_buses():
     buses = session.query(BusTable).all()

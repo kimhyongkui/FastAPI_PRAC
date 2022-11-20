@@ -26,6 +26,7 @@ def getBusRouteId(bus_number):
         bus_dict[bus_name] = bus_Id
         if bus_number == bus_name:
             print(f'{bus_name}의 버스ID는 {bus_Id}입니다.')
+            break
 
 getBusRouteId(6001)
 

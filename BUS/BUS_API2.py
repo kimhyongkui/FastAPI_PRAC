@@ -29,6 +29,8 @@ def getBusRouteId(bus_number):
             print(f'{bus_name}의 버스ID는 {bus_Id}입니다.')
 
 
+getBusRouteId(6001)
+
 def db_insert(bus_dict):
     db = pymysql.connect(host='localhost',
                            port=3306,

@@ -26,10 +26,10 @@ conn = pymysql.connect(host='127.0.0.1', user='root',
 
 # get(특정)
 # try:
+#     val = 6002
 #     curs = conn.cursor()
 #     sql = f"SELECT * FROM bus WHERE bus_name={val}"
-#     val = ("6001")
-#     curs.execute(sql, val)
+#     curs.execute(sql)
 #     result = curs.fetchall()
 #     conn.commit()
 #
@@ -43,9 +43,8 @@ conn = pymysql.connect(host='127.0.0.1', user='root',
 # get(전체)
 # try:
 #     curs = conn.cursor()
-#     sql = f"SELECT * FROM bus WHERE bus_name={val}"
-#     val = ("6001")
-#     curs.execute(sql, val)
+#     sql = "SELECT * FROM bus"
+#     curs.execute(sql)
 #     result = curs.fetchall()
 #     conn.commit()
 #
@@ -55,39 +54,42 @@ conn = pymysql.connect(host='127.0.0.1', user='root',
 # finally:
 #     conn.close()
 
-
-
 # post
 # try:
 #     curs = conn.cursor()
-#     sql = f"INSERT INTO bus VALUES ({val})"
-#     val = (6003, 120003)
-#     curs.execute(sql, val)
+#     getBusAll()
+#     bus_list = getBusAll()
+#     bus_name = bus_list[0::2]
+#     bus_id = bus_list[1::2]
+#
+#     for i in range(len(bus_list)):
+#         i = i+1
+#         sql = f"INSERT INTO bus (bus_name, bus_id) VALUES ({bus_name[i-1]}, {bus_id[i-1]})"
+#         curs.execute(sql)
+#         conn.commit()
+# finally:
+#     conn.close()
+#
+# put
+# try:
+#     val1 = 6001
+#     val2 = 6002
+#     curs = conn.cursor()
+#     sql = f"UPDATE bus SET bus_name={val1} WHERE bus_name={val2}"
+#     curs.execute(sql)
 #     conn.commit()
 #
 # finally:
 #     conn.close()
 
 
-# put
-try:
-    curs = conn.cursor()
-    sql = f"UPDATE bus SET bus_name=%s WHERE bus_name={val}"
-    val = ("6001", "6002")
-    curs.execute(sql, val)
-    conn.commit()
-
-finally:
-    conn.close()
-
-
-delete
-try:
-    curs = conn.cursor()
-    sql = f"DELETE FROM bus WHERE bus_name={val}"
-    val = ("6001")
-    curs.execute(sql, val)
-    conn.commit()
-
-finally:
-    conn.close()
+# delete
+# try:
+#     val = ("6001")
+#     curs = conn.cursor()
+#     sql = f"DELETE FROM bus WHERE bus_name={val}"
+#     curs.execute(sql)
+#     conn.commit()
+#
+# finally:
+#     conn.close()

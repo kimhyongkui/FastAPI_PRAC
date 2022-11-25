@@ -27,7 +27,7 @@ conn = pymysql.connect(host='127.0.0.1', user='root',
 # get(특정)
 # try:
 #     curs = conn.cursor()
-#     sql = "SELECT * FROM bus WHERE bus_name=%s"
+#     sql = f"SELECT * FROM bus WHERE bus_name={val}"
 #     val = ("6001")
 #     curs.execute(sql, val)
 #     result = curs.fetchall()
@@ -43,7 +43,7 @@ conn = pymysql.connect(host='127.0.0.1', user='root',
 # get(전체)
 # try:
 #     curs = conn.cursor()
-#     sql = "SELECT * FROM bus WHERE bus_name=%s"
+#     sql = f"SELECT * FROM bus WHERE bus_name={val}"
 #     val = ("6001")
 #     curs.execute(sql, val)
 #     result = curs.fetchall()
@@ -60,7 +60,7 @@ conn = pymysql.connect(host='127.0.0.1', user='root',
 # post
 # try:
 #     curs = conn.cursor()
-#     sql = "INSERT INTO bus VALUES (%s, %s)"
+#     sql = f"INSERT INTO bus VALUES ({val})"
 #     val = (6003, 120003)
 #     curs.execute(sql, val)
 #     conn.commit()
@@ -72,7 +72,7 @@ conn = pymysql.connect(host='127.0.0.1', user='root',
 # put
 try:
     curs = conn.cursor()
-    sql = "UPDATE bus SET bus_name=%s WHERE bus_name=%s"
+    sql = f"UPDATE bus SET bus_name=%s WHERE bus_name={val}"
     val = ("6001", "6002")
     curs.execute(sql, val)
     conn.commit()
@@ -81,13 +81,13 @@ finally:
     conn.close()
 
 
-# delete
-# try:
-#     curs = conn.cursor()
-#     sql = "DELETE FROM bus WHERE bus_name=%s"
-#     val = ("6001")
-#     curs.execute(sql, val)
-#     conn.commit()
-#
-# finally:
-#     conn.close()
+delete
+try:
+    curs = conn.cursor()
+    sql = f"DELETE FROM bus WHERE bus_name={val}"
+    val = ("6001")
+    curs.execute(sql, val)
+    conn.commit()
+
+finally:
+    conn.close()

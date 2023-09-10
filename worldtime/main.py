@@ -33,32 +33,33 @@ def get_cities():
         results.append({'name':city['name'], 'timezone':city['timezone'], 'current_time': cur_time})
 
     return results
+print(get_cities())
 
 
-@app.get('/cities/{city_id}')
-def get_city(city_id: int):
-    city = db[city_id-1]
-    r = requests.get(f"http://worldtimeapi.org/api/timezone/{city['timezone']}")
-    cur_time = r.json()['datetime']
-    return {'name':city['name'], 'timezone':city['timezone'], 'current_time': cur_time}
-
-
+# @app.get('/cities/{city_id}')
+# def get_city(city_id: int):
+#     city = db[city_id-1]
+#     r = requests.get(f"http://worldtimeapi.org/api/timezone/{city['timezone']}")
+#     cur_time = r.json()['datetime']
+#     return {'name':city['name'], 'timezone':city['timezone'], 'current_time': cur_time}
+#
+#
 @app.post('/cities')
 def create_city(city: City):
     db.append(city.dict())
     return db[-1]
-
-@app.put('/cities')
-def modify_city(city: CityModify):
-
-    db[city.id-1] = { 'name': city.name, 'timezone': city.timezone }
-
-    return db[city.id-1]
-
-@app.delete('/cities/{city_id}')
-def delete_city(city_id: int):
-    db.pop(city_id-1)
-    return {}
+#
+# @app.put('/cities')
+# def modify_city(city: CityModify):
+#
+#     db[city.id-1] = { 'name': city.name, 'timezone': city.timezone }
+#
+#     return db[city.id-1]
+#
+# @app.delete('/cities/{city_id}')
+# def delete_city(city_id: int):
+#     db.pop(city_id-1)
+#     return {}
 
 
 
